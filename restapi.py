@@ -6,6 +6,7 @@ import io
 from PIL import Image
 
 import torch
+import time
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ DETECTION_URL = "/v1/object-detection/yolov5s"
 
 @app.route(DETECTION_URL, methods=["POST"])
 def predict():
+    s = time.time()
     if not request.method == "POST":
         return
 
@@ -26,6 +28,8 @@ def predict():
 
         results = model(img, size=640)
         data = results.pandas().xyxy[0].to_json(orient="records")
+        e = time.time()
+        print(e-s)
         return data
 
 
@@ -35,7 +39,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     model = torch.hub.load(
-        "ultralytics/yolov5", "yolov5s", pretrained=True, force_reload=True
-    ).autoshape()  # force_reload = recache latest code
+        "ultralytics/yolov5", "yolov5s", classes = 0,pretrained=True, force_reload=True
+    )  # force_reload = recache latest code
     model.eval()
     app.run(host="0.0.0.0", port=args.port)  # debug=True causes Restarting with stat
