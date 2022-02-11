@@ -9,9 +9,8 @@ def sendtoserver(frame):
     file = {'image': ('image.jpg', imencoded.tostring(), 'image/jpeg', {'Expires': '0'})}
     response = requests.post("http://10.0.2.235:5000/v1/object-detection/yolov5s", files=file, timeout=5)
     j = response.json()
-    print(j)
-    result = [i for i in j if i['confidence'] > 0.5]
-    return len(result)
+    result = [i for i in j if i['confidence'] > 0.5 and i['class'] == 0]
+    return result
 
 
 video_stream_widget = VideoStreamWidget('https://testvs.iviscloud.net/hls/IVISUSA1003C7/playlist.m3u8')
