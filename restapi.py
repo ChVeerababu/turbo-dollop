@@ -13,10 +13,13 @@ app = Flask(__name__)
 
 DETECTION_URL = "/v1/object-detection/yolov5s"
 
+@app.route('/')
+def index():
+    return 'hello world'
+
 
 @app.route(DETECTION_URL, methods=["POST"])
 def predict():
-    s = time.time()
     if not request.method == "POST":
         return
 
@@ -26,19 +29,14 @@ def predict():
 
         img = Image.open(io.BytesIO(image_bytes))
 
-        results = model(img, size=640)
+        results = model(img, size=480)
         data = results.pandas().xyxy[0].to_json(orient="records")
-        e = time.time()
-        print(e-s)
         return data
 
+map_location = torch.device("cpu")
+model = torch.hub.load("ultralytics/yolov5", "yolov5n",pretrained=True)  # force_reload = recache latest code
+model.to(map_location)
+model.eval()
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Flask api exposing yolov5 model")
-    parser.add_argument("--port", default=5000, type=int, help="port number")
-    args = parser.parse_args()
-    map_location = torch.device("cpu")
-    model = torch.hub.load("ultralytics/yolov5", "yolov5n", classes = 0,pretrained=True)  # force_reload = recache latest code
-    model.to(map_location)
-    model.eval()
     app.run(host="0.0.0.0", port=args.port)  # debug=True causes Restarting with stat
