@@ -39,4 +39,4 @@ model.to(map_location)
 model.eval()
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=args.port)  # debug=True causes Restarting with stat
+    app.run(host="0.0.0.0", port=5000)  # debug=True causes Restarting with stat
