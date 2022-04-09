@@ -13,6 +13,9 @@ app = Flask(__name__)
 
 DETECTION_URL = "/v1/object-detection/yolov5s"
 
+@app.route('/')
+def index():
+	return 'Hello World!'
 
 @app.route(DETECTION_URL, methods=["POST"])
 def predict():
