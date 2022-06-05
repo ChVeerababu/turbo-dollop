@@ -45,10 +45,10 @@ tensorboard==2.8.0
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.1
 thop==0.0.31.post2005241907
-tomli==2.0.1
-torch==1.9.0
-torchaudio==0.9.0
-torchvision==0.10.0
+tomli
+torch
+torchaudio
+torchvision
 tqdm==4.62.3
 typing_extensions==4.0.1
 urllib3==1.26.8
