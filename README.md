@@ -11,7 +11,7 @@ docker container restart pytorch_odapi
 device:
 
 ```
-git clone -b dev [repo](https://github.com/ravichandra99/turbo-dollop.git)
+git clone -b dev https://github.com/ravichandra99/turbo-dollop.git
 cd turbo-dollop
 docker-compose up -d
 ```
