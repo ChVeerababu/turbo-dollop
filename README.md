@@ -1,5 +1,11 @@
 sitemanager:
 
+```
+# Build
+docker build -t yolov5-flask .
+# Run
+docker run -p 5000:5000 yolov5-flask:latest
+```
 
 git clone repo
 cd repo
