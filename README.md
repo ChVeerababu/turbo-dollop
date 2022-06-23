@@ -1,7 +1,7 @@
 sitemanager:
 
 
-git clone repo\n
+git clone repo
 cd repo
 docker build -t pytorch_odapi .
 docker run -dp 5050:5000 pytorch_odapi
